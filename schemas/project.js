@@ -5,5 +5,5 @@ module.exports = mongoose.model("Project", {
 	description: String,
 	languages: [],
 	url: String,
-	git-url: String	
+	giturl: String	
 });

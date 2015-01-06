@@ -5,7 +5,16 @@ var ProjectSchema = require("../schemas/project");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	// TODO: should load all the projects from the database
+	FlightSchema.find()
+				.setOptions({sort: 'name'})
+				.exec(function(error, projects) {
+					if (error) {
+						console.log(error);
+						res.status(500).json({status: 'failure'});
+					} else {
+						res.render('index', { title: 'Projects', projects: projects });
+					}
+				});
 
   	res.render('index', { title: 'Express' });
 });
