@@ -2,13 +2,14 @@ module.exports = function(db) {
 	var express = require('express');
 	var session = require('express-session');
 	var MongoStore = require('connect-mongo')(session);
+	var passport = require('./auth');
 	var path = require('path');
 	var favicon = require('serve-favicon');
 	var logger = require('morgan');
 	var cookieParser = require('cookie-parser');
 	var bodyParser = require('body-parser');
 
-	var routes = require('./routes/index');
+	var routes = require('./routes/index')(passport);
 	var users = require('./routes/users');
 
 	var app = express();
@@ -28,13 +29,17 @@ module.exports = function(db) {
 		secret: 'keyboard cat',
 		store: new MongoStore({
 			mongoose_connection: db
-		})
+		}),
+		resave: true,
+		saveUninitialized: true
 	}));
+	app.use(passport.initialize());
+	app.use(passport.session());
 	app.use(express.static(path.join(__dirname, 'public')));
 
 	// Set the header
 	app.use( function (req, res, next) {
-		res.next("X-Powered-By", "Folio");
+		res.set("X-Powered-By", "Folio");
 		next();
 	});
 

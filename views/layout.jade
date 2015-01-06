@@ -1,7 +1,38 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+	body 
+		div(id="header", class="navbar navbar-default")		
+			div(class="container")
+				div(class="navbar-header")
+					div(class="navbar-brand", href="/")= 'Folio'
+
+				div(class="collapse navbar-collapse")
+					ul(class="navbar-left nav navbar-nav")
+						li(class=(title === "Projects") ? "active" : "")
+							a(href="/")= "Projects"
+						
+						li(class=(title === "Resume") ? "active" : "")
+							a(href="/")= "Resume"	
+
+					ul(class="navbar-right nav navbar-nav")
+						if loggedIn
+							p(class="navbar-text")= "Signed in as ..."
+							
+							li
+								a(href="/logout")= "Logout"
+							
+							li(roll="presentation", class="dropdown")
+								a(class="dropdown-toggle", data-toggle="dropdown" href="#" roll="button", aria-expanded="false")
+									| Edit
+									span(class="caret")
+								ul(class="dropdown-menu", roll="menu")
+									li
+										a(href="#")= "New Project"
+						else
+							li(class=(title === "Login"))
+								a(href="/login")= "Login "
+
+		block content

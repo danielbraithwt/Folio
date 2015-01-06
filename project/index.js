@@ -1,8 +1,9 @@
 var Project = function() {
 	this.data = {
+		id: null,
 		name: null,
 		description: null,
-		languages = [],
+		languages = null,
 		url: null,
 		git-url: null,
 	};
@@ -22,7 +23,7 @@ var Project = function() {
 	};
 
 	this.getLanguages = function() {
-		return this.data["languages"];	
+		return this.data["languages"].split(' ');	
 	};
 
 };
