@@ -1,5 +1,7 @@
 module.exports = function(db) {
 	var express = require('express');
+	var session = require('express-session');
+	var MongoStore = require('connect-mongo')(session);
 	var path = require('path');
 	var favicon = require('serve-favicon');
 	var logger = require('morgan');
@@ -22,6 +24,12 @@ module.exports = function(db) {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
+	app.use(session({
+		secret: 'keyboard cat',
+		store: new MongoStore({
+			mongoose_connection: db
+		})
+	}));
 	app.use(express.static(path.join(__dirname, 'public')));
 
 	// Set the header
