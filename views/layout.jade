@@ -3,7 +3,7 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-	body 
+	body
 		div(id="header", class="navbar navbar-default")		
 			div(class="container")
 				div(class="navbar-header")
@@ -32,7 +32,7 @@ html
 									li
 										a(href="#")= "New Project"
 						else
-							li(class=(title === "Login"))
-								a(href="/login")= "Login "
+							li(class=(title === "Login") ? 'active' : '')
+								a(href="/login")= "Login"
 
 		block content
