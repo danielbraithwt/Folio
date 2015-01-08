@@ -3,6 +3,13 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+		script(src='/javascripts/jquery-1.11.2.min.js')
+		script(src='/javascripts/bootstrap.min.js')
+
+		script
+			| $(document).ready(function () {
+			| 	$('.dropdown-toggle').dropdown();
+			| });
 
 		block headtags
 	body
@@ -21,18 +28,19 @@ html
 
 					ul(class="navbar-right nav navbar-nav")
 						if loggedIn
-							p(class="navbar-text")= "Signed in as ..."
+							li
+								p(class="navbar-text")= "Signed in as ..."
 							
 							li
 								a(href="/logout")= "Logout"
 							
-							li(roll="presentation", class="dropdown")
-								a(class="dropdown-toggle", data-toggle="dropdown" href="#" roll="button", aria-expanded="false")
-									| Edit
+							li(class="dropdown")
+								a(id="edit_menu", href="#", class="dropdown-toggle", data-toggle="dropdown", aria-haspopup="true", roll="button", aria-expanded="false")= "Edit "
 									span(class="caret")
-								ul(class="dropdown-menu", roll="menu")
-									li
-										a(href="#")= "New Project"
+
+								ul(class="dropdown-menu", roll="menu", aria-labelledby="edit_menu")
+									li(roll="presentation")
+										a(href="#", roll="menuitem", tabindex="-1")= "Add Project"
 						else
 							li(class=(title === "Login") ? 'active' : '')
 								a(href="/login")= "Login"
