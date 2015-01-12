@@ -12,6 +12,9 @@ module.exports = function(db) {
 	var routes = require('./routes/index')(passport);
 	var users = require('./routes/users');
 
+	var mysql = require('mysql');
+	var connection = require('express-myconnection');
+
 	var app = express();
 
 	// view engine setup
@@ -26,6 +29,11 @@ module.exports = function(db) {
 	//	res.set("X-Powered-By", "Folio");
 	//	next();
 	//});
+	//
+	app.use(connection(mysql, { host: 'localhost',
+					 			user: 'root',
+					 			password: 'password',
+					 			database: 'folio' }, 'request'));
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
