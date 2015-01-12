@@ -18,10 +18,17 @@ module.exports = function(passport) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
 
+		res.render('index', { title: 'Home', loggedIn: loggedIn});
+	});
+
+	router.get('/projects', function(req, res) {
+		// See if the user is authencated
+		var loggedIn = isLoggedIn(req);
+
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects", function(err, rows) {
 				console.log(rows);
-				res.render('index', { title: 'Projects', loggedIn: loggedIn, projects: rows });
+				res.render('projects', { title: 'Projects', loggedIn: loggedIn, projects: rows });
 			});
 		});
 

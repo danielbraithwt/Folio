@@ -1,24 +1,5 @@
 extends layout
 
-block headtags
-	link(rel='stylesheet', href='/stylesheets/index.css')
-
 block content
-	div(class="col-sm-10 col-sm-offset-1")
-		- for (var p in projects)
-			div(class="col-sm-5 col-lg-2")
-				div(class="project_title col-sm-12")
-					div(class="project_title_name")= projects[p].name
-					div(class="project_title_desc")= projects[p].description
-
-				div(class="project_languages col-sm-12")
-					div(class="languages_title")= "Languages"
-					div(class="languages_list")
-
-				div(class="project_links col-sm-12")
-					a(href=projects[p].url)= projects[p].url
-					a(href=projects[p].giturl)= projects[p].giturl
-
-
-					
-				
+	div(id="about_me")
+		p= "Im Daniel and im currently a student at Victoria University of Wellington. I am persuing a BSc with a double major in Computer Sciencec and Mathematics."

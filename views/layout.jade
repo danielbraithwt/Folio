@@ -21,8 +21,11 @@ html
 
 				div(class="collapse navbar-collapse")
 					ul(class="navbar-left nav navbar-nav")
+						li(class=(title === "Home") ? "active" : "")
+							a(href="/")= "Home"
+
 						li(class=(title === "Projects") ? "active" : "")
-							a(href="/")= "Projects"
+							a(href="/projects")= "Projects"
 						
 						li(class=(title === "Resume") ? "active" : "")
 							a(href="/resume")= "Resume"	
