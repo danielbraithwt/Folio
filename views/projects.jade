@@ -4,7 +4,7 @@ block headtags
 	link(rel='stylesheet', href='/stylesheets/projects.css')
 
 block content
-	div(class="col-sm-10 col-sm-offset-1")
+	div(class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-4")
 		- for (var p in projects)
 			div(class="project")
 				div(class="project_information")
@@ -12,12 +12,11 @@ block content
 					div(class="project_title_desc")= projects[p].description
 
 				div(class="project_buttons")
-					if (projects[p].url != null)
-						div(class="btn btn-default", href=projects[p].url)= "URL"
-					
-					if (projects[p].description != null)
-						div(href=projects[p].giturl)= projects[p].giturl
+					if (projects[p].url != "")
+						div(class="btn btn-info", href=projects[p].url)= "View"
 
+					if loggedIn
+						div(class="btn btn-warning", href="/projects/edit/" + projects[p].id)= "Edit Project"
 
-					
-				
+						div(class="btn btn-danger", href="/projects/delete/" + projects[p].id)= "Delete Project"
+
