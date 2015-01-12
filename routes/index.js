@@ -133,10 +133,10 @@ module.exports = function(passport) {
 		res.redirect('/projects');
 	});
 
-	router.get('/project/edit/:id', function(req, res) {
-		var loggedin = isloggedin(req);
+	router.get('/projects/edit/:id', function(req, res) {
+		var loggedIn = isLoggedIn(req);
 
-		if (!loggedin) {
+		if (!loggedIn) {
 			res.redirect('/login');
 		}
 
@@ -144,15 +144,15 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('edit', {project: rows[0]});	
+				res.render('editproject', {project: rows[0], loggedIn: loggedIn});	
 			});	
 		});
 	});
 
-	router.post('/project/edit/:id', function(req, res) {
-		var loggedin = isloggedin(req);
+	router.post('/projects/edit/:id', function(req, res) {
+		var loggedIn = isLoggedIn(req);
 
-		if (!loggedin) {
+		if (!loggedIn) {
 			res.redirect('/login');
 		}
 
@@ -160,16 +160,30 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			for (var l in req.body) {
-				connection.query("UPDATE project  WHERE id=" + id + " SET " + l + "='" + req.body[l] + "';", function(err, rows) {});
+				console.log("Setting " + l + " : " + req.body[l]);
+
+				if( req.body[l] != null && req.body[l] != "" ) {
+					var field = l.split("_")[1];
+
+					connection.query("UPDATE projects SET " + field + "='" + req.body[l] + "' WHERE id=" + id + ";", function(err, rows) { 
+						if (err) {
+							console.log("[ERROR] " + err);   
+						} else {
+							console.log("[UPDATE] Project(id=" + id + "): " + field + " updated to " + req.body[l]);
+						}
+					});
+				}
 			}
+
+			res.redirect('/projects');
 		});
 
 	});
 
-	router.get('project/delete/:id', function(req, res) {
-		var loggedin = isloggedin(req);
+	router.get('projects/delete/:id', function(req, res) {
+		var loggedIn = isLoggedIn(req);
 
-		if (!loggedin) {
+		if (!loggedIn) {
 			res.redirect('/login');
 		}
 
@@ -177,16 +191,16 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('delete', {project: rows[0]});	
+				res.render('delete', {project: rows[0], loggedIn: loggedIn});	
 			});	
 		});
 	
 	});
 
-	router.get('project/destroy/:id', function(req, res) {
-		var loggedin = isloggedin(req);
+	router.get('projects/destroy/:id', function(req, res) {
+		var loggedIn = isLoggedIn(req);
 
-		if (!loggedin) {
+		if (!loggedIn) {
 			res.redirect('/login');
 		}
 

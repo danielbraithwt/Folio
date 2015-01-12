@@ -16,7 +16,7 @@ block content
 						div(class="btn btn-info", href=projects[p].url)= "View"
 
 					if loggedIn
-						div(class="btn btn-warning", href="/projects/edit/" + projects[p].id)= "Edit Project"
+						div(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"
 
-						div(class="btn btn-danger", href="/projects/delete/" + projects[p].id)= "Delete Project"
+						div(class="btn btn-danger", href=("/projects/delete/" + projects[p].id))= "Delete Project"
 
