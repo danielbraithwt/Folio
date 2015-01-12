@@ -1,5 +1,37 @@
 extends layout
 
+block headtags
+	link(rel='stylesheet', href='/stylesheets/index.css')
+
 block content
-	div(id="about_me")
-		p= "Im Daniel and im currently a student at Victoria University of Wellington. I am persuing a BSc with a double major in Computer Sciencec and Mathematics."
+	div(id="experence", class="col-sm-8 col-md-4 col-md-offset-3")
+		div(class='title')= "Experence"
+		div(id='experence_information')
+			div(class="text")= "I have alot of experence with Java, it was one of the first languages i learnt and i have used it alot for my own projects aswell as for university assignments. I also have some experence with the languages Python, Ruby and Javascript"
+
+			div(id='web_framworks')
+				div(class='sub_title')= "Web Frameworks"
+				div(class="text")= "I have used Ruby On Rails and Node.js to create my own projects giving me hands on experence with these web frameworks. I used Ruby On Rails to create a web application to manage workouts at the gym and I used Node.js to create this portfolio site. Both are available from the projects page of this website and my GitHub Page"
+
+	div(id="about_me", class="col-sm-4 col-md-2")
+		div(class='title')= "About Me"
+		div(id="profile_picture")
+		div(id="about_me_text")= "Im Daniel and im currently a student at Victoria University of Wellington. I am persuing a BSc with a double major in Computer Sciencec and Mathematics."
+
+		div(id="email", class="contact_option")
+			div(class="icon")
+				span(class="glyphicon glyphicon-envelope", style="font-size: 32px;")
+
+			a(class="contact_link", href="mailto:danielbraithwt@gmail.com")= "danielbraithwt@gmail.com"
+
+		div(id="github", class="contact_option")
+			div(class="icon")
+				img(src="images/GitHub-Mark-32px.png")
+
+			a(class="contact_link", href="http://github.com/danielbraithwt")= "http://github.com/danielbraithwt"
+
+		div(id="mobile", class="contact_option")
+			div(class="icon")
+				span(class="glyphicon glyphicon-earphone", style="font-size: 32px;")
+
+			p= "0221882084"

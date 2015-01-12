@@ -1,16 +1,58 @@
-.project_title {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.project_title_name {
-	font-size: 30px;
+.title {
+	color: rgba(0, 0, 0, 0.7);
+	font-size: 35px;
 	font-weight: bold;
+
+	margin-bottom: 10px;
+
 }
 
-.project_title_desc {
-	font-size: 15px;
-	color: rgba(0, 0, 0, 0.4);
+#profile_picture {
+	width: 120px;
+	height: 120px;
+
+	margin-left: 15px;
+	margin-bottom: 20px;
+
+	border-radius: 50%;
+
+	background-image: url(../images/photo.jpg);
 }
 
+.contact_option {
+	width: 100%;
+
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+
+	clear: both;
+}
+
+.icon {
+	width: 32px;
+	height: 32px;
+
+	margin-right: 10px;
+
+	float: left;
+}
+
+.contact_link {
+	height: 32px;
+	
+	line-height: 32px;
+
+	float: left;
+}
+
+.sub_title {
+	color: rgba(0, 0, 0, 0.7);
+	font-size: 16px;
+	font-weight: bold;
+	
+	margin-top: 20px;
+	margin-bottom: 2px;
+}
 
