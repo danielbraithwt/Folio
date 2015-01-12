@@ -133,5 +133,71 @@ module.exports = function(passport) {
 		res.redirect('/projects');
 	});
 
+	router.get('/project/edit/:id', function(req, res) {
+		var loggedin = isloggedin(req);
+
+		if (!loggedin) {
+			res.redirect('/login');
+		}
+
+		var id = req.params.id;
+
+		req.getConnection(function(err, connection) {
+			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
+				res.render('edit', {project: rows[0]});	
+			});	
+		});
+	});
+
+	router.post('/project/edit/:id', function(req, res) {
+		var loggedin = isloggedin(req);
+
+		if (!loggedin) {
+			res.redirect('/login');
+		}
+
+		var id = req.params.id;
+
+		req.getConnection(function(err, connection) {
+			for (var l in req.body) {
+				connection.query("UPDATE project  WHERE id=" + id + " SET " + l + "='" + req.body[l] + "';", function(err, rows) {});
+			}
+		});
+
+	});
+
+	router.get('project/delete/:id', function(req, res) {
+		var loggedin = isloggedin(req);
+
+		if (!loggedin) {
+			res.redirect('/login');
+		}
+
+		var id = req.params.id;
+
+		req.getConnection(function(err, connection) {
+			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
+				res.render('delete', {project: rows[0]});	
+			});	
+		});
+	
+	});
+
+	router.get('project/destroy/:id', function(req, res) {
+		var loggedin = isloggedin(req);
+
+		if (!loggedin) {
+			res.redirect('/login');
+		}
+
+		var id = req.params.id;
+		
+
+		req.getConnection(function(err, connection) {
+			connection.query("DELETE FROM projects WHERE id=" + id);
+			res.redirect('/projects');
+		});
+	});
+
 	return router;
 };
