@@ -101,12 +101,18 @@ module.exports = function(passport) {
 		var name = "";
 		var desc = "";
 		var languages = [];
+		var url = "";
+		var giturl = "";
 
 		for( var l in req.body ) {
 			if (l === "project_name") {
 				name = req.body[l];
 			} else if (l === "project_desc") {
 				desc = req.body[l];
+			} else if (l === "url") {
+				url = req.body[l];
+			} else if (l === "giturl") {
+				giturl = req.body[l]
 			} else if (l.indexOf("language") != -1) {
 				var lang = l.split("_")[1];
 				languages.push(lang);
@@ -121,10 +127,10 @@ module.exports = function(passport) {
 		console.log("[*] Languages: " + languages);
 
 		req.getConnection(function(err, connection) {
-			connection.query("INSERT INTO projects(name, description, languages) values('" + name + "', '" + desc + "', '" + languages.join() + "');");
+			connection.query("INSERT INTO projects(name, description, languages, url, giturl) values('" + name + "', '" + desc + "', '" + languages.join() + "', '" + url + "', '" + giturl + "');");
 		});
 
-		res.redirect('/');
+		res.redirect('/projects');
 	});
 
 	return router;
