@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		title= title
+		link(rel='stylesheet', href='/stylesheets/layout.css')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
 		script(src='/javascripts/jquery-1.11.2.min.js')
 		script(src='/javascripts/bootstrap.min.js')
@@ -29,9 +30,6 @@ html
 					ul(class="navbar-right nav navbar-nav")
 						if loggedIn
 							li
-								p(class="navbar-text")= "Signed in as ..."
-							
-							li
 								a(href="/logout")= "Logout"
 							
 							li(class="dropdown")
@@ -45,5 +43,8 @@ html
 							li(class=(title === "Login") ? 'active' : '')
 								a(href="/login")= "Login"
 		div(id="image")
+			div(id="header_image_text")
+				div(id="name")= "Daniel Braithwaite"
+				div(id="desc")= "My description"
 
 		block content
