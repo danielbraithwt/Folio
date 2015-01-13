@@ -16,7 +16,8 @@ block content
 
 					div(class="project_buttons")
 						if (projects[p].url != "")
-							a(class="btn btn-info", href=projects[p].url)= "View"
+							a(class="btn btn-info", href=projects[p].weblocation)= "View"
+							a(class="btn btn-info", href=projects[p].sourcelocation)= "Source"
 
 						if loggedIn
 							a(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"

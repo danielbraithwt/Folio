@@ -102,9 +102,9 @@ module.exports = function(passport) {
 				name = req.body[l];
 			} else if (l === "project_desc") {
 				desc = req.body[l];
-			} else if (l === "weblocation") {
+			} else if (l === "project_weblocation") {
 				weblocation = req.body[l];
-			} else if (l === "sourcelocation") {
+			} else if (l === "project_sourcelocation") {
 				sourcelocation = req.body[l]
 			} else {
 				console.log("[E] Something strange happend!, Form name of '" + l + "'");
