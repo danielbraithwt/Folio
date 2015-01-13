@@ -180,7 +180,7 @@ module.exports = function(passport) {
 
 	});
 
-	router.get('projects/delete/:id', function(req, res) {
+	router.get('/projects/delete/:id', function(req, res) {
 		var loggedIn = isLoggedIn(req);
 
 		if (!loggedIn) {
@@ -191,13 +191,13 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('delete', {project: rows[0], loggedIn: loggedIn});	
+				res.render('deleteproject', {project: rows[0], loggedIn: loggedIn});	
 			});	
 		});
 	
 	});
 
-	router.get('projects/destroy/:id', function(req, res) {
+	router.get('/projects/destroy/:id', function(req, res) {
 		var loggedIn = isLoggedIn(req);
 
 		if (!loggedIn) {

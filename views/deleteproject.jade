@@ -1,0 +1,14 @@
+extends layout
+
+block headtags
+	link(rel='stylesheet', href='/stylesheets/deleteproject.css')
+
+block content
+		div(class='delete_project_form col-sm-8 col-sm-offset-2')
+			div(class='title')= "Delete Project"	
+			div(class='info')
+				div(class='warning')= "Are you sure you want to delete the project " + project.name + ". This action cant be undone"
+				
+				div(class='buttons')
+					a(class="btn btn-success", href="/projects")= "No"
+					a(class="btn btn-danger", href=("/projects/destroy/" + project.id))= "Yes"

@@ -1,0 +1,32 @@
+.title {
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 500%;
+	color: rgba(0, 0, 0, 0.8);
+
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.info {
+
+}
+
+.buttons {
+	margin-top: 30px;
+		
+	text-align: center;
+}
+
+.buttons a {
+	margin-right: 20px;
+}
+
+.warning {
+	color: #d9534f;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
