@@ -7,9 +7,10 @@ block content
 	div(class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-4")
 		- for (var p in projects)
 			div(class="project")
-				div(class="project_image thumbnail")
+				if (projects[p].thumbnail != null)
+					div(class="project_image thumbnail")
 
-				div(class="project_details col-sm-8")
+				div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8" : ""))
 					div(class="project_information")
 						div(class="project_title_name")= projects[p].name
 						div(class="project_title_desc")= projects[p].description
