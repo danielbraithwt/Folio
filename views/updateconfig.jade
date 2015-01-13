@@ -1,0 +1,46 @@
+extends layout
+
+block headtags
+	link(rel='stylesheet', href='/stylesheets/updateconfig.css')
+
+block content
+	div(id="update_form", class="col-sm-6 col-sm-offset-3")
+		div(id="form_title")= "Update Details"
+
+		form(method="post", class="form_group", enctype="multipart/form-data")
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="text", name="name", class="form-control", placeholder="Full Name", value=config.name)
+
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="text", name="description", class="form-control", placeholder="Description", value=config.description)
+
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="text", name="about_me", class="form-control", placeholder="About You", value=config.about_me)
+
+			div(class="upload")
+				div(class='sub_title')= "Resume"
+				input(type="file", value="resume", name="resume")
+
+			div(class="upload")
+				div(class='sub_title')= "Profile Icon"
+				p= "Size: 180px X 180px"
+				input(type="file", value="profile_icon", name="profile_icon")
+
+			div(class="upload")
+				div(class='sub_title')= "Banner Image"
+				p= "Size: 180px X 180px"
+				input(type="file", value="banner_image", name="banner_image")
+
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="email", name="email", class="form-control", placeholder="Email", value=config.email)
+
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="url", name="github", class="form-control", placeholder="GitHub Profile", value=config.github)
+
+			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
+				input(type="text", name="phone_number", class="form-control", placeholder="Phone Number", value=config.phone_number)
+
+			div(class="btn-group btn-group-lg")
+				button(type="submit", class="btn btn-primary")= "Update"
+		
+			

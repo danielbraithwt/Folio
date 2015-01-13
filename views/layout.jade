@@ -39,12 +39,15 @@ html
 								ul(class="dropdown-menu", roll="menu", aria-labelledby="edit_menu")
 									li(roll="presentation")
 										a(href="/projects/new", roll="menuitem", tabindex="-1")= "Add Project"
+										a(href="/update", roll="menuitem", tabindex="-1")= "Update Details"
 						else
 							li(class=(title === "Login") ? 'active' : '')
 								a(href="/login")= "Login"
-		div(id="image")
-			div(id="header_image_text")
-				div(id="name")= "Daniel Braithwaite"
-				div(id="desc")= "My description"
+
+		if (config.banner_image != '')
+			div(id="image", style='background-image: url(uploads/' + config.banner_image + ');')
+				div(id="header_image_text")
+					div(id="name")= (config.name != '' ? config.name : "Your Name")
+					div(id="desc")= (config.description != '' ? config.description : "Description About You")
 
 		block content

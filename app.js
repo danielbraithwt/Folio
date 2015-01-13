@@ -11,6 +11,9 @@ module.exports = function(db) {
 
 	var multer = require('multer');
 
+	//var config = {};
+	//require('./mysql/config')(config);
+
 	var routes = require('./routes/index')(passport);
 	var users = require('./routes/users');
 
@@ -20,7 +23,7 @@ module.exports = function(db) {
 	var app = express();
 
 	// Configure multer
-	app.use(multer({ dest: './public/images/',
+	app.use(multer({ dest: './public/uploads/',
 				   	onFileUploadStart: function (file) {
 						console.log("[UPLOAD] Starting upload of: " + file.originalname);
 					},

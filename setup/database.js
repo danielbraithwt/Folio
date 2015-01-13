@@ -22,5 +22,12 @@ var passwordhash = bcrypt.hashSync("password", 8);
 console.log("\t[>] Password hash: " + passwordhash);
 connection.query("INSERT INTO users(username, passwordhash) values('test@test.com', '" + passwordhash + "');");
 
+console.log("[*] Creating config table");
+connection.query("CREATE TABLE IF NOT EXISTS config(name varchar(400), description varchar(100), about_me varchar(400), resume varchar(200), profile_icon varchar(200), banner_image varchar(200), email varchar(200), github varchar(200), phone_number varchar(50));");
+console.log("[*] Clearing config table");
+connection.query("TRUNCATE config;");
+console.log("[*] Creating empty record in config table");
+connection.query("INSERT INTO config(name, description, about_me, resume, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', 'IMG_0410.jpg', '', '', '')");
+
 connection.end();
 console.log("[*] Configuration finished... Database connection closed");

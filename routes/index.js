@@ -2,8 +2,10 @@ module.exports = function(passport) {
 
 	var express = require('express');
 	var router = express.Router();
-	var languages = require('../mysql/languages');
-	//console.log(list_lang);
+	var configConnection = require('../mysql/config');
+	var config = {};
+	configConnection.get(config);
+
 
 	function isLoggedIn(req) {
 		if( req.session.passport.user !== undefined ) {
@@ -18,7 +20,7 @@ module.exports = function(passport) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
 
-		res.render('index', { title: 'Home', loggedIn: loggedIn});
+		res.render('index', { title: 'Home', loggedIn: loggedIn, config: config});
 	});
 
 	router.get('/projects', function(req, res) {
@@ -28,7 +30,7 @@ module.exports = function(passport) {
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects", function(err, rows) {
 				console.log(rows);
-				res.render('projects', { title: 'Projects', loggedIn: loggedIn, projects: rows });
+				res.render('projects', { title: 'Projects', loggedIn: loggedIn, projects: rows , config: config});
 			});
 		});
 
@@ -44,7 +46,7 @@ module.exports = function(passport) {
 			req.redirect('/');
 		}
 
-		res.render('login', {title: "Login"});
+		res.render('login', {title: "Login", config: config});
 	});
 
 	router.post('/login', passport.authenticate('local', {
@@ -71,7 +73,7 @@ module.exports = function(passport) {
 		req.getConnection(function(err, connection) {
 			
 			connection.query("SELECT * FROM languages", function(err, rows) {
-				res.render('newproject', { title: "Project", loggedIn: true});				
+				res.render('newproject', { title: "Project", loggedIn: true, config: config});				
 			});
 		});
 	});
@@ -129,7 +131,7 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('editproject', {project: rows[0], loggedIn: loggedIn});	
+				res.render('editproject', {project: rows[0], loggedIn: loggedIn, config: config});	
 			});	
 		});
 	});
@@ -180,7 +182,7 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('deleteproject', {project: rows[0], loggedIn: loggedIn});	
+				res.render('deleteproject', {project: rows[0], loggedIn: loggedIn, config: config});	
 			});	
 		});
 	
@@ -200,6 +202,36 @@ module.exports = function(passport) {
 			connection.query("DELETE FROM projects WHERE id=" + id);
 			res.redirect('/projects');
 		});
+	});
+
+	router.get('/update', function(req, res) {
+		var loggedIn = isLoggedIn(req);
+
+		if (!loggedIn) {
+			res.redirect('/login');
+		}
+
+		res.render('updateconfig', {loggedIn: loggedIn, config: config});
+
+	});
+
+	router.post('/update', function(req, res) {
+		for (var i in config) {
+			if (req.body[i]) {
+				config[i] = req.body[i];
+			}
+		}
+	
+		console.log(req.files);	
+
+		for (var i in config) {
+			if (req.files[i]) {
+				config[i] = req.files[i].name;
+			}
+		}
+	
+		configConnection.save(config);
+		res.redirect('/');	
 	});
 
 	return router;

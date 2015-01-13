@@ -15,26 +15,34 @@ block content
 
 	div(id="about_me", class="col-sm-4 col-md-2")
 		div(class='title')= "About Me"
-		div(id="profile_picture")
-		div(id="about_me_text")= "Im Daniel and im currently a student at Victoria University of Wellington. I am persuing a BSc with a double major in Computer Sciencec and Mathematics."
+		
+		if (config.profile_icon != '')
+			div(id="profile_picture" style='background-image: url(uploads/' + config.profile_icon + ");")
+	
+		if (config.about_me != '')
+			div(id="about_me_text")= config.about_me
+		
+		if (config.resume != '')
+			div(id="resume")
+				a(class="btn btn-default" href="uploads/" + config.resume)= "Download Resume"
+		
+		if (config.email != '')
+			div(id="email", class="contact_option")
+				div(class="icon")
+					span(class="glyphicon glyphicon-envelope", style="font-size: 32px;")
 
-		div(id="resume")
-			a(class="btn btn-default")= "Download Resume"
+				a(class="contact_link", href="mailto:" + config.email)= config.email
 
-		div(id="email", class="contact_option")
-			div(class="icon")
-				span(class="glyphicon glyphicon-envelope", style="font-size: 32px;")
+		if (config.github != '')
+			div(id="github", class="contact_option")
+				div(class="icon")
+					img(src="images/GitHub-Mark-32px.png")
 
-			a(class="contact_link", href="mailto:danielbraithwt@gmail.com")= "danielbraithwt@gmail.com"
+				a(class="contact_link", href=config.github)= config.github
+		
+		if (config.phone_number != '')
+			div(id="mobile", class="contact_option")
+				div(class="icon")
+					span(class="glyphicon glyphicon-earphone", style="font-size: 32px;")
 
-		div(id="github", class="contact_option")
-			div(class="icon")
-				img(src="images/GitHub-Mark-32px.png")
-
-			a(class="contact_link", href="http://github.com/danielbraithwt")= "http://github.com/danielbraithwt"
-
-		div(id="mobile", class="contact_option")
-			div(class="icon")
-				span(class="glyphicon glyphicon-earphone", style="font-size: 32px;")
-
-			p= "0221882084"
+				p= config.phone_number
