@@ -7,16 +7,18 @@ block content
 	div(class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-4")
 		- for (var p in projects)
 			div(class="project")
-				div(class="project_information")
-					div(class="project_title_name")= projects[p].name
-					div(class="project_title_desc")= projects[p].description
+				div(class="project_image thumbnail")
 
-				div(class="project_buttons")
-					if (projects[p].url != "")
-						a(class="btn btn-info", href=projects[p].url)= "View"
+				div(class="project_details")
+					div(class="project_information")
+						div(class="project_title_name")= projects[p].name
+						div(class="project_title_desc")= projects[p].description
 
-					if loggedIn
-						a(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"
+					div(class="project_buttons")
+						if (projects[p].url != "")
+							a(class="btn btn-info", href=projects[p].url)= "View"
 
-						a(class="btn btn-danger", href=("/projects/delete/" + projects[p].id))= "Delete Project"
+						if loggedIn
+							a(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"
+							a(class="btn btn-danger", href=("/projects/delete/" + projects[p].id))= "Delete Project"
 

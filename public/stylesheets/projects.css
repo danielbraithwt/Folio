@@ -1,5 +1,20 @@
 .project {
 	margin-bottom: 50px;
+
+	clear: both;
+}
+
+.project_image {
+	width: 180px;
+	height: 180px;
+
+	float: left;
+
+	margin-right: 20px;
+}
+
+.project_details {
+	float: left;
 }
 
 .project_title {
