@@ -78,13 +78,7 @@ module.exports = function(passport) {
 		req.getConnection(function(err, connection) {
 			
 			connection.query("SELECT * FROM languages", function(err, rows) {
-				var langs = {};
-
-				for(var r in rows) {
-					langs[rows[r].id] = rows[r].language;
-				}
-
-				res.render('newproject', { title: "Project", loggedIn: true, languages: langs });				
+				res.render('newproject', { title: "Project", loggedIn: true});				
 			});
 		});
 	});

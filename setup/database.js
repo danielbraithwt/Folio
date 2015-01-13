@@ -22,15 +22,5 @@ var passwordhash = bcrypt.hashSync("password", 8);
 console.log("\t[>] Password hash: " + passwordhash);
 connection.query("INSERT INTO users(username, passwordhash) values('test@test.com', '" + passwordhash + "');");
 
-console.log("[*] Creating table to hold all the language data");
-connection.query("CREATE TABLE IF NOT EXISTS languages(id int AUTO_INCREMENT, language varchar(200), PRIMARY KEY(id));");
-connection.query("INSERT INTO languages(language) values('JavaScript');");
-connection.query("INSERT INTO languages(language) values('html');");
-connection.query("INSERT INTO languages(language) values('css');");
-connection.query("INSERT INTO languages(language) values('ruby');");
-connection.query("INSERT INTO languages(language) values('c');");
-connection.query("INSERT INTO languages(language) values('c#');");
-connection.query("INSERT INTO languages(language) values('c++');");
-
 connection.end();
 console.log("[*] Configuration finished... Database connection closed");

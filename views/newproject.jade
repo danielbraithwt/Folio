@@ -20,15 +20,6 @@ block content
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="giturl", class="form-control", placeholder="Git URL")
 
-			div(class="languages input-group input-group-lg col-sm-12")
-				- for(var lang in languages)
-					div(class="language_selector col-sm-4")
-						div(class="input_group")
-							div(class="language_name")= languages[lang]
-								
-							div(class="language_checkbox")
-								input(type="checkbox", name=("language_" + lang) )
-
 			div(class="btn-group btn-group-lg")
 				button(type="submit", class="btn btn-primary")= "Create"
 		
