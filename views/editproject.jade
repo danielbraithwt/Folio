@@ -21,7 +21,10 @@ block content
 				input(type="text", name="project_sourcelocation", class="form-control", placeholder=(project.sourcelocation != null ? project.sourcelocation : "Source Code Location"))
 
 			div(class="thumbnail_upload")
+				div(class='sub_title')= "Thumbnail"
+				p= "Size: 180px X 180px"
 				div(class="project_thumbnail thumbnail")
+					img(src="../../images/" + project.thumbnail)
 				input(type="file", value="project_thumbnail", name="project_thumbnail")
 
 			div(class="btn-group btn-group-lg")
