@@ -12,7 +12,7 @@ console.log("[*] Database connection open");
 connection.connect();
 
 console.log("[*] Creating projects database");
-connection.query("CREATE TABLE IF NOT EXISTS projects(id int AUTO_INCREMENT, name varchar(200), description varchar(2000), languages varchar(3000), url varchar(500), giturl varchar(500), PRIMARY KEY(id));");
+connection.query("CREATE TABLE IF NOT EXISTS projects(id int AUTO_INCREMENT, name varchar(200), description varchar(2000), languages varchar(3000), weblocation varchar(500), sourcelocation varchar(500), PRIMARY KEY(id));");
 
 console.log("[*] Creating users table");
 connection.query("CREATE TABLE IF NOT EXISTS users(username varchar(200), passwordhash varchar(2000));");

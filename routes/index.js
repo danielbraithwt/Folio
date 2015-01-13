@@ -94,34 +94,25 @@ module.exports = function(passport) {
 		
 		var name = "";
 		var desc = "";
-		var languages = [];
-		var url = "";
-		var giturl = "";
+		var weblocation = "";
+		var sourcelocation = "";
 
 		for( var l in req.body ) {
 			if (l === "project_name") {
 				name = req.body[l];
 			} else if (l === "project_desc") {
 				desc = req.body[l];
-			} else if (l === "url") {
-				url = req.body[l];
-			} else if (l === "giturl") {
-				giturl = req.body[l]
-			} else if (l.indexOf("language") != -1) {
-				var lang = l.split("_")[1];
-				languages.push(lang);
+			} else if (l === "weblocation") {
+				weblocation = req.body[l];
+			} else if (l === "sourcelocation") {
+				sourcelocation = req.body[l]
 			} else {
 				console.log("[E] Something strange happend!, Form name of '" + l + "'");
 			}
 		}
 
-		console.log("[*] New Project!");
-		console.log("[*] Name: " + name);
-		console.log("[*] Description: " + desc);
-		console.log("[*] Languages: " + languages);
-
 		req.getConnection(function(err, connection) {
-			connection.query("INSERT INTO projects(name, description, languages, url, giturl) values('" + name + "', '" + desc + "', '" + languages.join() + "', '" + url + "', '" + giturl + "');");
+			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "');");
 		});
 
 		res.redirect('/projects');
