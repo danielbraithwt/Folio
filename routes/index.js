@@ -96,6 +96,13 @@ module.exports = function(passport) {
 		var desc = "";
 		var weblocation = "";
 		var sourcelocation = "";
+		var thumbnail = "";
+
+		// Get the thumbnail
+		if (req.files["project_thumbnail"]) {
+			thumbnail = req.files["project_thumbnail"].name;
+		}
+		
 
 		for( var l in req.body ) {
 			if (l === "project_name") {
@@ -112,7 +119,7 @@ module.exports = function(passport) {
 		}
 
 		req.getConnection(function(err, connection) {
-			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "');");
+			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation, thumbnail) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "', '" + thumbnail + "');");
 		});
 
 		res.redirect('/projects');

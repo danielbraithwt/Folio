@@ -7,7 +7,7 @@ block content
 	div(id="new_project_form", class="col-sm-6 col-sm-offset-3")
 		div(id="form_title")= "New Project"
 
-		form(method="post", class="form_group")
+		form(method="post", class="form_group", enctype="multipart/form-data")
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="project_name", class="form-control", placeholder="Project Name")
 
@@ -19,6 +19,11 @@ block content
 
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="project_sourcelocation", class="form-control", placeholder="Source Code Location")
+
+			div(class="thumbnail_upload")
+				div(class='sub_title')= "Thumbnail"
+				p= "Size: 180px X 180px"
+				input(type="file", value="project_thumbnail", name="project_thumbnail")
 
 			div(class="btn-group btn-group-lg")
 				button(type="submit", class="btn btn-primary")= "Create"
