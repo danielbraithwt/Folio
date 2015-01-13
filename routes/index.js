@@ -65,7 +65,7 @@ module.exports = function(passport) {
 		res.redirect('/');
 	});
 	
-	router.get('/project/new', function(req, res) {
+	router.get('/projects/new', function(req, res) {
 		
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
@@ -89,7 +89,7 @@ module.exports = function(passport) {
 		});
 	});
 
-	router.post('/project/new', function(req, res) {
+	router.post('/projects/new', function(req, res) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
 
