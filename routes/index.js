@@ -159,6 +159,10 @@ module.exports = function(passport) {
 					});
 				}
 			}
+			
+			if (req.files["project_thumbnail"]) {	
+				connection.query("UPDATE projects SET thumbnail='" + req.files["project_thumbnail"].name + "' WHERE id=" + id);
+			}
 
 			res.redirect('/projects');
 		});

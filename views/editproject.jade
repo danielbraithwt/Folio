@@ -7,7 +7,7 @@ block content
 	div(id="edit_project_form", class="col-sm-6 col-sm-offset-3")
 		div(id="form_title")= "Edit Project"
 
-		form(method="post", class="form_group")
+		form(method="post", class="form_group", enctype="multipart/form-data")
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="project_name", class="form-control", placeholder=project.name)
 
@@ -15,10 +15,14 @@ block content
 				input(type="textarea", name="project_description", class="form-control", placeholder=project.description)
 
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
-				input(type="text", name="weblocation", class="form-control", placeholder=(project.weblocation != null ? project.weblocation : "Web Location"))
+				input(type="text", name="project_weblocation", class="form-control", placeholder=(project.weblocation != null ? project.weblocation : "Web Location"))
 
 			div(class="input-group input-group-lg col-sm-10 col-sm-offset-1")
-				input(type="text", name="sourcelocation", class="form-control", placeholder=(project.sourcelocation != null ? project.sourcelocation : "Source Code Location"))
+				input(type="text", name="project_sourcelocation", class="form-control", placeholder=(project.sourcelocation != null ? project.sourcelocation : "Source Code Location"))
+
+			div(class="thumbnail_upload")
+				div(class="project_thumbnail thumbnail")
+				input(type="file", value="project_thumbnail", name="project_thumbnail")
 
 			div(class="btn-group btn-group-lg")
 				button(type="submit", class="btn btn-primary")= "Update"

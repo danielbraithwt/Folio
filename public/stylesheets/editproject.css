@@ -27,3 +27,14 @@ input {
 
 	padding-bottom: 20px;
 }
+
+.thumbnail_upload {
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+}
+
+.project_thumbnail {
+	width: 180px;
+	height: 180px;
+}

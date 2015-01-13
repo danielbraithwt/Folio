@@ -9,6 +9,8 @@ module.exports = function(db) {
 	var cookieParser = require('cookie-parser');
 	var bodyParser = require('body-parser');
 
+	var multer = require('multer');
+
 	var routes = require('./routes/index')(passport);
 	var users = require('./routes/users');
 
@@ -16,6 +18,17 @@ module.exports = function(db) {
 	var connection = require('express-myconnection');
 
 	var app = express();
+
+	// Configure multer
+	app.use(multer({ dest: './public/images/',
+				   	onFileUploadStart: function (file) {
+						console.log("[UPLOAD] Starting upload of: " + file.originalname);
+					},
+					onFileUploadComplete: function (file) {
+						console.log("[UPLOAD] Upload finished: " + file.path);
+					}
+				}
+			));
 
 	// view engine setup
 	app.set('port', process.env.PORT || 3000 );
@@ -35,8 +48,8 @@ module.exports = function(db) {
 					 			password: 'password',
 					 			database: 'folio' }, 'request'));
 	app.use(logger('dev'));
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({ extended: false }));
+	//app.use(bodyParser.json());
+	//app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
 	app.use(session({
 		secret: 'keyboard cat',
