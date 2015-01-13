@@ -35,13 +35,6 @@ module.exports = function(passport) {
   		//res.render('index', { title: 'Projects', loggedIn: loggedIn });
 	});
 
-	router.get('/resume', function(req, res) {
-		// See if the user is authencated
-		var loggedIn = isLoggedIn(req);
-
-		res.render('resume', {title: "Resume", loggedIn: loggedIn});
-	});
-
 	router.get('/login', function(req, res) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
