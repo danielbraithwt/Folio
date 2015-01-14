@@ -222,12 +222,14 @@ module.exports = function(passport) {
 			}
 		}
 	
-		console.log(req.files);	
-
 		for (var i in config) {
 			if (req.files[i]) {
 				config[i] = req.files[i].name;
 			}
+		}
+
+		for (var i in config.experence) {
+			config.experence[i].text = req.body["experence_" + config.experence[i].id];
 		}
 	
 		configConnection.save(config);

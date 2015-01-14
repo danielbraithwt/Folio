@@ -29,5 +29,12 @@ connection.query("TRUNCATE config;");
 console.log("[*] Creating empty record in config table");
 connection.query("INSERT INTO config(name, description, about_me, resume, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', 'IMG_0410.jpg', '', '', '')");
 
+console.log("[*] Creating table to hold experence data")
+connection.query("CREATE TABLE IF NOT EXISTS experence(id int AUTO_INCREMENT, title varchar(200), placeholder varchar(300), text varchar(2000), PRIMARY KEY(id));");
+connection.query("TRUNCATE experence;");
+connection.query("INSERT INTO experence(title, placeholder, text) values('Languages', 'What languages are you experenced with and how', '');");
+connection.query("INSERT INTO experence(title, placeholder, text) values('Web Frameworks', 'What web frameworks are you experenced with and how', '');");
+
+
 connection.end();
 console.log("[*] Configuration finished... Database connection closed");

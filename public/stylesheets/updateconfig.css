@@ -3,6 +3,11 @@ input {
 	margin-bottom: 10px;
 }
 
+textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 #form_title {
 	padding-bottom: 10px;
 
@@ -41,4 +46,10 @@ input {
 button {
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+.experence_inputs {
+	clear: both;
+
+	margin-top: 20px;
 }

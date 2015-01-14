@@ -18,6 +18,16 @@ this.get = function(config) {
 		console.log("[*] Config Loaded");
 	});
 
+	connection.query("SELECT * FROM experence", function(error, rows, fields) {
+		config["experence"] = rows;
+
+		console.log(config);
+
+		console.log("[*] Experence Loaded");
+	});
+
+
+
 	//connection.end();
 };
 
@@ -27,12 +37,21 @@ this.save = function(config) {
 	console.log(config);
 
 	for (var l in config) {
-		connection.query("UPDATE config SET " + l + "='" + config[l] + "';", function(err, rows) { 
-		if (err) {
-			console.log("[ERROR] " + err);   
+		if (l == "experence") {
+			for (var e in config.experence) {
+				console.log(config.experence[e]);
+				connection.query("UPDATE experence SET text='" + (config.experence[e].text != '' ? config.experence[e].text : '') + "' WHERE id=" + config.experence[e].id + ";", function(err, rows) {
+					if (err) {
+						console.log("[ERROR] " + err);
+					}
+				});
+			}
+		} else {
+			connection.query("UPDATE config SET " + l + "='" + config[l] + "';", function(err, rows) { 
+				if (err) {
+					console.log("[ERROR] " + err);   
+				}
+			});
 		}
-	});
-
-	//connection.end();
-}
+	}
 };

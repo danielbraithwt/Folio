@@ -14,8 +14,8 @@ block content
 			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="description", class="form-control", placeholder="Description", value=config.description)
 
-			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
-				input(type="text", name="about_me", class="form-control", placeholder="About You", value=config.about_me)
+			div(class="form-group col-sm-10 col-sm-offset-1")
+				textarea(rows="5", name="about_me", class="form-control", placeholder="About You", value=config.about_me)
 
 			div(class="upload")
 				div(class='sub_title')= "Resume"
@@ -39,8 +39,13 @@ block content
 
 			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
 				input(type="text", name="phone_number", class="form-control", placeholder="Phone Number", value=config.phone_number)
+			
+			div(class="experence_inputs")
+				div(class="sub_title")= "Here you can created sections to talk about your experence"
+				
+				- for (var i in config.experence)
+					textarea(rows="5", type="text", name=("experence_" + config.experence[i].id), class="form-control", placeholder=config.experence[i].placeholder)= config.experence[i].text
 
 			div(class="btn-group btn-group-lg")
 				button(type="submit", class="btn btn-primary")= "Update"
-		
-			
+
