@@ -27,7 +27,7 @@ connection.query("CREATE TABLE IF NOT EXISTS config(name varchar(400), descripti
 console.log("[*] Clearing config table");
 connection.query("TRUNCATE config;");
 console.log("[*] Creating empty record in config table");
-connection.query("INSERT INTO config(name, description, about_me, resume, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', 'IMG_0410.jpg', '', '', '')");
+connection.query("INSERT INTO config(name, description, about_me, resume, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', '', '', '', '')");
 
 console.log("[*] Creating table to hold experence data")
 connection.query("CREATE TABLE IF NOT EXISTS experence(id int AUTO_INCREMENT, title varchar(200), placeholder varchar(300), text varchar(2000), PRIMARY KEY(id));");
