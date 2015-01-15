@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	database: 'folio',
-	password: 'password'
+	host: process.env.FOLIO_HOST,
+	user: process.env.FOLIO_USER,
+	database: process.env.FOLIO_DATABASE,
+	password: process.env.FOLIO_PASSWORD
 });
 
 
