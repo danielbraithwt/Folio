@@ -6,6 +6,7 @@ module.exports = function(passport) {
 	var config = {};
 	configConnection.get(config);
 
+	// Function to see if the user is logged in
 	function isLoggedIn(req) {
 		if( req.session.passport.user !== undefined ) {
 			return true;
@@ -14,7 +15,6 @@ module.exports = function(passport) {
 		return false;
 	}
 
-	/* GET home page. */
 	router.get('/', function(req, res) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
@@ -87,12 +87,12 @@ module.exports = function(passport) {
 		var sourcelocation = "";
 		var thumbnail = "";
 
-		// Get the thumbnail
+		// Get the thumbnail file name
 		if (req.files["project_thumbnail"]) {
 			thumbnail = req.files["project_thumbnail"].name;
 		}
 		
-
+		// Collect all the data about the new project
 		for( var l in req.body ) {
 			if (l === "project_name") {
 				name = req.body[l];
@@ -116,11 +116,13 @@ module.exports = function(passport) {
 
 	router.get('/projects/edit/:id', function(req, res) {
 		var loggedIn = isLoggedIn(req);
-
+		
+		// If the user isnt logged in then they cant do this action
 		if (!loggedIn) {
 			res.redirect('/login');
 		}
-
+		
+		// Get the ID of the project to edit
 		var id = req.params.id;
 
 		req.getConnection(function(err, connection) {
@@ -132,7 +134,8 @@ module.exports = function(passport) {
 
 	router.post('/projects/edit/:id', function(req, res) {
 		var loggedIn = isLoggedIn(req);
-
+		
+		// This action cant be done if the user isnt logged in
 		if (!loggedIn) {
 			res.redirect('/login');
 		}
@@ -141,16 +144,12 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			for (var l in req.body) {
-				console.log("Setting " + l + " : " + req.body[l]);
-
 				if( req.body[l] != null && req.body[l] != "" ) {
 					var field = l.split("_")[1];
 
 					connection.query("UPDATE projects SET " + field + "='" + req.body[l] + "' WHERE id=" + id + ";", function(err, rows) { 
 						if (err) {
 							console.log("[ERROR] " + err);   
-						} else {
-							console.log("[UPDATE] Project(id=" + id + "): " + field + " updated to " + req.body[l]);
 						}
 					});
 				}

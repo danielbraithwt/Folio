@@ -8,6 +8,7 @@ this.get = function(config) {
 			console.log(error);
 		}
 
+		// Load all the config data into the config object provieded
 		for (var c in rows[0]) {
 			config[c] = rows[0][c];
 		}
@@ -15,6 +16,7 @@ this.get = function(config) {
 		console.log("[*] Config Loaded");
 	});
 
+	// Load the experence data into the config object
 	connection.query("SELECT * FROM experence", function(error, rows, fields) {
 		config["experence"] = rows;
 		console.log("[*] Experence Loaded");
@@ -22,6 +24,7 @@ this.get = function(config) {
 };
 
 this.save = function(config) {
+	// Save all the information in the config object to the database
 	for (var l in config) {
 		if (l == "experence") {
 			for (var e in config.experence) {

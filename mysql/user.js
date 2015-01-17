@@ -23,11 +23,10 @@ this.checkAuth = function(username, password, done) {
 }
 
 this.updateDetails = function(data) {
-	connection.connect();
-
+	// Update the user table with the data provided
 	for( var d in data ) {
-		connection.query("UPDATE USERS SET " + d + " = '" + data[d] + "' LIMIT 1;");
+		if(data[d]) {
+			connection.query("UPDATE USERS SET " + d + " = '" + data[d] + "';");
+		}
 	}
-
-	connection.end();
 };
