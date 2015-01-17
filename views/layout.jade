@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title= title
+		title= config.name
 		link(rel='stylesheet', href='/stylesheets/layout.css')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
 		script(src='/javascripts/jquery-1.11.2.min.js')
@@ -17,7 +17,7 @@ html
 		div(id="header", class="navbar navbar-default")
 			div(class="container")
 				div(class="navbar-header")
-					div(class="navbar-brand", href="/")= 'Folio'
+					div(class="navbar-brand", href="/")= config.name
 
 				div(class="collapse navbar-collapse")
 					ul(class="navbar-left nav navbar-nav")
