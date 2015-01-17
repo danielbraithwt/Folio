@@ -17,10 +17,10 @@ connection.query("CREATE TABLE IF NOT EXISTS projects(id int AUTO_INCREMENT, nam
 console.log("[*] Creating users table");
 connection.query("CREATE TABLE IF NOT EXISTS users(username varchar(200), passwordhash varchar(2000));");
 
-console.log("[*] Creating default user, test@test.com (username), password (password)");
+console.log("[*] Creating default user, admin (username), password (password)");
 var passwordhash = bcrypt.hashSync("password", 8);
 console.log("\t[>] Password hash: " + passwordhash);
-connection.query("INSERT INTO users(username, passwordhash) values('test@test.com', '" + passwordhash + "');");
+connection.query("INSERT INTO users(username, passwordhash) values('admin', '" + passwordhash + "');");
 
 console.log("[*] Creating config table");
 connection.query("CREATE TABLE IF NOT EXISTS config(name varchar(400), description varchar(100), about_me varchar(400), resume varchar(200), profile_icon varchar(200), banner_image varchar(200), email varchar(200), github varchar(200), phone_number varchar(50));");

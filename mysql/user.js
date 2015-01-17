@@ -1,36 +1,30 @@
 var bcrypt = require('bcryptjs');
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	host: 'localhost',
-	database: 'folio',
-	user: 'root',
-	password: 'password'
+	host: 		process.env.FOLIO_HOST,
+	database: 	process.env.FOLIO_DATABASE,
+	user: 		process.env.FOLIO_USER,
+	password: 	process.env.FOLIO_PASSWORD
 });
 
-this.checkAuth = function(username, password) {
-	connection.connect();
-
-	//var auth = false;
-	//connection.query("SELECT * FROM USERS WHERE username='" + username + "' AND passwordhash='" + passwordhash + ";", function(err, rows, fields) {
+this.checkAuth = function(username, password, done) {
+	// Find the user with the username passed to the function
 	connection.query("SELECT * FROM users WHERE username='" + username + "';", function(error, rows, fields) {
-		//auth = true;
-
-		if (bcrypt.compareSync(password, rows[0].passwordhash)) {
-			return true;
-			//console.log(auth);
+					
+		// If an error has occored then display and fail auth
+		if (error) {
+			console.log(error);
+			return done(null, false);
 		}
-
-		return false;
-
+					
+		// Check to see if the password entered matches the one stored
+		if (bcrypt.compareSync(password, rows[0].passwordhash)) {
+			return done(null, {username: username});
+		}
+		
+		return done(null, false);
 	});
-
-	connection.end();
-	
-	//return authA
-	// TODO: Remove this when i can figure out how to get the auth
-	// working properly;
-	return true;
-};
+}
 
 this.updateDetails = function(data) {
 	connection.connect();

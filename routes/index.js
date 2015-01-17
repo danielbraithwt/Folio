@@ -6,7 +6,6 @@ module.exports = function(passport) {
 	var config = {};
 	configConnection.get(config);
 
-
 	function isLoggedIn(req) {
 		if( req.session.passport.user !== undefined ) {
 			return true;

@@ -46,10 +46,10 @@ module.exports = function(db) {
 	//	next();
 	//});
 	//
-	app.use(connection(mysql, { host: 'localhost',
-					 			user: 'root',
-					 			password: 'password',
-					 			database: 'folio' }, 'request'));
+	app.use(connection(mysql, { host: process.env.FOLIO_HOST,
+					 			user: process.env.FOLIO_USER,
+					 			password: process.env.FOLIO_PASSWORD,
+					 			database: process.env.FOLIO_DATABASE }, 'request'));
 	app.use(logger('dev'));
 	//app.use(bodyParser.json());
 	//app.use(bodyParser.urlencoded({ extended: false }));
