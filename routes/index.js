@@ -69,12 +69,7 @@ module.exports = function(passport) {
 			req.redirect('/login');
 		}
 
-		req.getConnection(function(err, connection) {
-			
-			connection.query("SELECT * FROM languages", function(err, rows) {
-				res.render('newproject', { title: "Project", loggedIn: true, config: config});				
-			});
-		});
+		res.render('newproject', { title: "Project", loggedIn: true, config: config});				
 	});
 
 	router.post('/projects/new', function(req, res) {

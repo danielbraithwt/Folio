@@ -7,7 +7,6 @@ module.exports = function(db) {
 	var favicon = require('serve-favicon');
 	var logger = require('morgan');
 	var cookieParser = require('cookie-parser');
-	var bodyParser = require('body-parser');
 
 	var multer = require('multer');
 
@@ -15,9 +14,9 @@ module.exports = function(db) {
 	//require('./mysql/config')(config);
 
 	var routes = require('./routes/index')(passport);
-	var users = require('./routes/users');
 
 	var mysql = require('mysql');
+	var mysqlConfig = require('./mysql/mysql-config');
 	var connection = require('express-myconnection');
 
 	var app = express();
@@ -46,10 +45,7 @@ module.exports = function(db) {
 	//	next();
 	//});
 	//
-	app.use(connection(mysql, { host: process.env.FOLIO_HOST,
-					 			user: process.env.FOLIO_USER,
-					 			password: process.env.FOLIO_PASSWORD,
-					 			database: process.env.FOLIO_DATABASE }, 'request'));
+	app.use(connection(mysql, mysqlConfig, 'request'));
 	app.use(logger('dev'));
 	//app.use(bodyParser.json());
 	//app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,7 +69,6 @@ module.exports = function(db) {
 	//});
 
 	app.use('/', routes);
-	app.use('/users', users);
 
 	// catch 404 and forward to error handler
 	//app.use(function(req, res, next) {

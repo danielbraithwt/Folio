@@ -1,11 +1,7 @@
 var bcrypt = require('bcryptjs');
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-	host: 		process.env.FOLIO_HOST,
-	database: 	process.env.FOLIO_DATABASE,
-	user: 		process.env.FOLIO_USER,
-	password: 	process.env.FOLIO_PASSWORD
-});
+var mysqlConfig = require('./mysql-config');
+var connection = mysql.createConnection(mysqlConfig);
 
 this.checkAuth = function(username, password, done) {
 	// Find the user with the username passed to the function
