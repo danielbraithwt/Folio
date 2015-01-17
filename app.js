@@ -1,66 +1,61 @@
-module.exports = function(db) {
-	var express = require('express');
-	var session = require('express-session');
-	var MongoStore = require('connect-mongo')(session);
-	var passport = require('./auth');
-	var path = require('path');
-	var favicon = require('serve-favicon');
-	var logger = require('morgan');
-	var cookieParser = require('cookie-parser');
+var express = require('express');
+var session = require('express-session');
+//var MongoStore = require('connect-mongo')(session);
+var passport = require('./auth');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var multer = require('multer');
+//var config = {};
+//require('./mysql/config')(config);
 
-	var multer = require('multer');
+var routes = require('./routes/index')(passport);
 
-	//var config = {};
-	//require('./mysql/config')(config);
+var mysql = require('mysql');
+var mysqlConfig = require('./mysql/mysql-config');
+var MySQLStore = require('express-mysql-session');
+var connection = require('express-myconnection');
 
-	var routes = require('./routes/index')(passport);
+var app = express();
 
-	var mysql = require('mysql');
-	var mysqlConfig = require('./mysql/mysql-config');
-	var connection = require('express-myconnection');
-
-	var app = express();
-
-	// Configure multer
-	app.use(multer({ dest: './public/uploads/',
-				   	onFileUploadStart: function (file) {
-						console.log("[UPLOAD] Starting upload of: " + file.originalname);
-					},
-					onFileUploadComplete: function (file) {
-						console.log("[UPLOAD] Upload finished: " + file.path);
-					}
+// Configure multer
+app.use(multer({ dest: './public/uploads/',
+				onFileUploadStart: function (file) {
+					console.log("[UPLOAD] Starting upload of: " + file.originalname);
+				},
+				onFileUploadComplete: function (file) {
+					console.log("[UPLOAD] Upload finished: " + file.path);
 				}
-			));
+			}
+		));
 
-	// view engine setup
-	app.set('port', process.env.PORT || 3000 );
-	app.set('views', path.join(__dirname, 'views'));
-	app.set('view engine', 'jade');
+// view engine setup
+app.set('port', process.env.PORT || 3000 );
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-	// uncomment after placing your favicon in /public
-	//app.use(favicon(__dirname + '/public/favicon.ico'));
-	// Set the header
-	//app.use( function (req, res, next) {
-	//	res.set("X-Powered-By", "Folio");
-	//	next();
-	//});
-	//
-	app.use(connection(mysql, mysqlConfig, 'request'));
-	app.use(logger('dev'));
-	//app.use(bodyParser.json());
-	//app.use(bodyParser.urlencoded({ extended: false }));
-	app.use(cookieParser());
-	app.use(session({
-		secret: 'keyboard cat',
-		store: new MongoStore({
-			mongoose_connection: db
-		}),
-		resave: true,
-		saveUninitialized: true
-	}));
-	app.use(passport.initialize());
-	app.use(passport.session());
-	app.use(express.static(path.join(__dirname, 'public')));
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+// Set the header
+//app.use( function (req, res, next) {
+//	res.set("X-Powered-By", "Folio");
+//	next();
+//});
+//
+app.use(connection(mysql, mysqlConfig, 'request'));
+app.use(logger('dev'));	
+app.use(cookieParser());
+app.use(session({
+	secret: 'keyboard cat',
+	store: new MySQLStore(mysqlConfig),
+	resave: true,
+	saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
 
 	// Set the header
 	//app.use( function (req, res, next) {
@@ -68,7 +63,7 @@ module.exports = function(db) {
 	//	next();
 	//});
 
-	app.use('/', routes);
+app.use('/', routes);
 
 	// catch 404 and forward to error handler
 	//app.use(function(req, res, next) {
@@ -101,5 +96,5 @@ module.exports = function(db) {
     	//});
 	//});
 
-	return app;
-};
+console.log(app.get('port'));
+module.exports = app;
