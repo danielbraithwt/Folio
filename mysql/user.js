@@ -24,9 +24,14 @@ this.checkAuth = function(username, password, done) {
 
 this.updateDetails = function(data) {
 	// Update the user table with the data provided
-	for( var d in data ) {
-		if(data[d]) {
-			connection.query("UPDATE USERS SET " + d + " = '" + data[d] + "';");
-		}
+	if (data.username) {
+		connection.query("UPDATE users SET username='" + data.username + "';");	
+	}
+
+	if (data.password) {
+		console.log(data.password);
+		var passwordHash = bcrypt.hashSync(data.password, 10);
+		console.log(passwordHash);
+		connection.query("UPDATE users SET passwordhash='" + passwordHash + "';");	
 	}
 };

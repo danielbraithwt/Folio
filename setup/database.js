@@ -16,9 +16,10 @@ connection.query("CREATE TABLE IF NOT EXISTS projects(id int AUTO_INCREMENT, nam
 
 console.log("[*] Creating users table");
 connection.query("CREATE TABLE IF NOT EXISTS users(username varchar(200), passwordhash varchar(2000));");
+connection.query("TRUNCATE users;");
 
 console.log("[*] Creating default user, admin (username), password (password)");
-var passwordhash = bcrypt.hashSync("password", 8);
+var passwordhash = bcrypt.hashSync("password", 10);
 console.log("\t[>] Password hash: " + passwordhash);
 connection.query("INSERT INTO users(username, passwordhash) values('admin', '" + passwordhash + "');");
 

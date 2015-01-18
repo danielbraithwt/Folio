@@ -5,6 +5,7 @@ module.exports = function(passport) {
 	var configConnection = require('../mysql/config');
 	var config = {};
 	configConnection.get(config);
+	var user = require('../mysql/user');
 
 	// Function to see if the user is logged in
 	function isLoggedIn(req) {
@@ -28,7 +29,6 @@ module.exports = function(passport) {
 
 		req.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM projects", function(err, rows) {
-				console.log(rows);
 				res.render('projects', { title: 'Projects', loggedIn: loggedIn, projects: rows , config: config});
 			});
 		});
@@ -58,6 +58,34 @@ module.exports = function(passport) {
 		req.logout();
 		res.redirect('/');
 	});
+
+	router.get('/update/login', function(req, res) {
+		// See if the user is authencated
+		var loggedIn = isLoggedIn(req);
+
+		if (!loggedIn) {
+			// TODO: Set a message to eb displayed 
+			req.redirect('/');
+		}
+		
+		console.log(config);
+		res.render('updatelogin', {title: 'Update Login', loggedIn: loggedIn, config: config});
+	});
+
+	router.post('/update/login', function(req, res) {
+		// See if the user is authencated
+		var loggedIn = isLoggedIn(req);
+
+		if (!loggedIn) {
+			// TODO: Set a message to eb displayed 
+			req.redirect('/');
+		}
+
+		user.updateDetails(req.body);
+		req.redirect('/');
+		//res.render('updatelogin', {title: 'Update Login', loggedIn: loggedIn, config: config});
+	});
+
 	
 	router.get('/projects/new', function(req, res) {
 		
