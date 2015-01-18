@@ -39,7 +39,7 @@ html
 								ul(class="dropdown-menu", roll="menu", aria-labelledby="edit_menu")
 									li(roll="presentation")
 										a(href="/projects/new", roll="menuitem", tabindex="-1")= "Add Project"
-										a(href="/update", roll="menuitem", tabindex="-1")= "Update Details"
+										a(href="/update/config", roll="menuitem", tabindex="-1")= "Update Details"
 										a(href="/update/login", foll="menuitem", tabindex="-1")= "Update Login"
 						else
 							li(class=(title === "Login") ? 'active' : '')

@@ -225,7 +225,7 @@ module.exports = function(passport) {
 		});
 	});
 
-	router.get('/update', function(req, res) {
+	router.get('/update/config', function(req, res) {
 		var loggedIn = isLoggedIn(req);
 
 		if (!loggedIn) {
@@ -236,7 +236,7 @@ module.exports = function(passport) {
 
 	});
 
-	router.post('/update', function(req, res) {
+	router.post('/update/config', function(req, res) {
 		for (var i in config) {
 			if (req.body[i]) {
 				config[i] = req.body[i];
