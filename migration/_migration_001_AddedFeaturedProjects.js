@@ -1,6 +1,6 @@
 this.up = function(connection) {
 	console.log("[*] Adding Fetured Projects Column");
-	connection.query("ALTER TABLE projects ADD COLUMN fetured bit DEFAULT 0");
+	connection.query("ALTER TABLE projects ADD COLUMN fetured boolean DEFAULT false");
 
 	connection.end();
 }

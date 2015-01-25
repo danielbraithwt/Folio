@@ -114,6 +114,7 @@ module.exports = function(passport) {
 		var weblocation = "";
 		var sourcelocation = "";
 		var thumbnail = "";
+		var fetured = 0;
 
 		// Get the thumbnail file name
 		if (req.files["project_thumbnail"]) {
@@ -130,13 +131,19 @@ module.exports = function(passport) {
 				weblocation = req.body[l];
 			} else if (l === "project_sourcelocation") {
 				sourcelocation = req.body[l]
+			} else if (l === "project_fetured") {
+				fetured = 1;
 			} else {
 				console.log("[E] Something strange happend!, Form name of '" + l + "'");
 			}
 		}
 
+		console.log(req.body);
+
+		console.log(fetured);
+
 		req.getConnection(function(err, connection) {
-			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation, thumbnail) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "', '" + thumbnail + "');");
+			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation, thumbnail, fetured) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "', '" + thumbnail + "', " + fetured + ");");
 		});
 
 		res.redirect('/projects');

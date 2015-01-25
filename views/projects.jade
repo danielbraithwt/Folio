@@ -14,6 +14,8 @@ block content
 				div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8 col-md-6" : ""))
 					div(class="project_information")
 						div(class="project_title_name")= projects[p].name
+						- if (projects[p].fetured == 1)
+							span(class='label label-info')= "Fetured"
 						div(class="project_title_desc")= projects[p].description
 
 					div(class="project_buttons")
