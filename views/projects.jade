@@ -19,8 +19,9 @@ block content
 						div(class="project_title_desc")= projects[p].description
 
 					div(class="project_buttons")
-						if (projects[p].url != "")
+						if (projects[p].weblocation != "")
 							a(class="btn btn-info", href=projects[p].weblocation)= "View"
+						if (projects[p].sourcelocation != "")
 							a(class="btn btn-info", href=projects[p].sourcelocation)= "Source"
 
 						if loggedIn
