@@ -20,7 +20,10 @@ module.exports = function(passport) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
 
-		res.render('index', { title: 'Home', loggedIn: loggedIn, config: config});
+		res.locals.config = config;
+		res.locals.loggedIn = loggedIn;
+		res.locals.title = "Home";
+		res.render('index');//, { title: 'Home', loggedIn: loggedIn, config: config});
 	});
 
 	router.get('/projects', function(req, res) {
@@ -28,8 +31,16 @@ module.exports = function(passport) {
 		var loggedIn = isLoggedIn(req);
 
 		req.getConnection(function(err, connection) {
+			// TODO: redirect to error page if error occored
+
 			connection.query("SELECT * FROM projects", function(err, rows) {
-				res.render('projects', { title: 'Projects', loggedIn: loggedIn, projects: rows , config: config});
+				// TODO: redirect to error page if an error occored
+
+				res.locals.projects = rows;
+				res.locals.config = config;
+				res.locals.loggedIn = loggedIn;
+				res.locals.title = "Projects";
+				res.render('projects');//, { title: 'Projects', loggedIn: loggedIn, projects: rows , config: config});
 			});
 		});
 
@@ -45,7 +56,9 @@ module.exports = function(passport) {
 			req.redirect('/');
 		}
 
-		res.render('login', {title: "Login", config: config});
+		res.locals.config = config;
+		res.locals.title = "Login";
+		res.render('login');//, {title: "Login", config: config});
 	});
 
 	router.post('/login', passport.authenticate('local', {
@@ -68,8 +81,11 @@ module.exports = function(passport) {
 			req.redirect('/');
 		}
 		
-		console.log(config);
-		res.render('updatelogin', {title: 'Update Login', loggedIn: loggedIn, config: config});
+
+		res.locals.config = config;
+		res.locals.loggedIn = loggedIn;
+		res.locals.title = "Update Login";
+		res.render('updatelogin');//, {title: 'Update Login', loggedIn: loggedIn, config: config});
 	});
 
 	router.post('/update/login', function(req, res) {
@@ -96,8 +112,11 @@ module.exports = function(passport) {
 			// TODO: Set a message to eb displayed 
 			req.redirect('/login');
 		}
-
-		res.render('newproject', { title: "Project", loggedIn: true, config: config});				
+		
+		res.locals.config = config;
+		res.locals.loggedIn = loggedIn;
+		res.locals.title = "Project";
+		res.render('newproject'); //{ title: "Project", loggedIn: true, config: config});				
 	});
 
 	router.post('/projects/new', function(req, res) {
@@ -159,10 +178,22 @@ module.exports = function(passport) {
 		
 		// Get the ID of the project to edit
 		var id = req.params.id;
-
 		req.getConnection(function(err, connection) {
+			if (err) {
+				console.log(err);
+			}
+				
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
-				res.render('editproject', {project: rows[0], loggedIn: loggedIn, config: config});	
+				if (err) {
+					console.log(err);
+					res.redirect('/');
+				} else	{
+					res.locals.config = config;
+					res.locals.loggedIn = loggedIn;
+					res.locals.project = rows[0];
+					res.render('editproject');
+					//res.render('editproject', {project: rows[0], loggedIn: loggedIn, config: config});	
+				}
 			});	
 		});
 	});
@@ -176,22 +207,33 @@ module.exports = function(passport) {
 		}
 
 		var id = req.params.id;
-
+		
+		console.log(req.body);
 		req.getConnection(function(err, connection) {
 			for (var l in req.body) {
 				if( req.body[l] != null && req.body[l] != "" ) {
 					var field = l.split("_")[1];
-
-					connection.query("UPDATE projects SET " + field + "='" + req.body[l] + "' WHERE id=" + id + ";", function(err, rows) { 
-						if (err) {
-							console.log("[ERROR] " + err);   
-						}
-					});
+					
+					if (field === "fetured") {
+						connection.query("UPDATE projects SET fetured=1 WHERE id=" + id);
+					} else {
+						connection.query("UPDATE projects SET " + field + "='" + req.body[l] + "' WHERE id=" + id + ";", function(err, rows) { 
+							if (err) {
+								console.log("[ERROR] " + err);   
+							}
+						});
+					}
 				}
 			}
 			
 			if (req.files["project_thumbnail"]) {	
 				connection.query("UPDATE projects SET thumbnail='" + req.files["project_thumbnail"].name + "' WHERE id=" + id);
+			}
+
+			// If the feture project checkbox wasnt checked then set it to
+			// false in the database
+			if (!req.body.project_fetured) {
+				connection.query("UPDATE projects SET fetured=0 WHERE id=" + id);
 			}
 
 			res.redirect('/projects');
