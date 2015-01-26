@@ -19,11 +19,16 @@ module.exports = function(passport) {
 	router.get('/', function(req, res) {
 		// See if the user is authencated
 		var loggedIn = isLoggedIn(req);
-
-		res.locals.config = config;
-		res.locals.loggedIn = loggedIn;
-		res.locals.title = "Home";
-		res.render('index');//, { title: 'Home', loggedIn: loggedIn, config: config});
+		
+		req.getConnection(function(err, connection) {
+			connection.query("SELECT * FROM projects WHERE fetured=1", function(err, rows) {
+				res.locals.config = config;
+				res.locals.loggedIn = loggedIn;
+				res.locals.title = "Home";
+				res.locals.projects = rows;
+				res.render('index');//, { title: 'Home', loggedIn: loggedIn, config: config});
+			});
+		});
 	});
 
 	router.get('/projects', function(req, res) {

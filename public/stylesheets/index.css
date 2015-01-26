@@ -60,3 +60,42 @@
 	margin-bottom: 2px;
 }
 
+.project {
+	margin-bottom: 50px;
+	clear: both;
+}
+
+.project_image {
+	width: 180px;
+	height: 180px;
+
+	float: left;
+
+	margin-right: 20px;
+}
+
+.project_details {
+	float: left;
+}
+
+.project_title {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.project_title_name {
+	font-size: 30px;
+	font-weight: bold;
+
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.project_title_desc {
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.4);
+}
+
+.project_buttons .btn {
+	margin-right: 20px;
+	margin-top: 20px;
+}
