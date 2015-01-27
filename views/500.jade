@@ -1,0 +1,12 @@
+extends layout
+
+block headtags
+	link(rel='stylesheet', href='/stylesheets/error.css')
+
+block content
+	div(id="error", class="col-sm-12 col-md-6 col-md-offset-3")
+		span(id="sign", class="glyphicon glyphicon-exclamation-sign")
+		div(id="error_code")= "500"
+		div(id="error_message")= "Internal Server Error"
+		div(id="error_desc")= "There was an error when processing this request"
+

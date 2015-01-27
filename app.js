@@ -57,11 +57,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
+//app.use(function(req, res, next) {
+	//var err = new Error('Not Found');
+	//err.status = 404;
+	//next(err);
+	//
+//	res.status(404);
+
+//	res.locals.error_code = 404;
+//	res.locals.error_message = "Not Found";
+//	res.locals.error_desc = "The page you requested dosnt exsist";
+//	res.render('error')
+//	return;
+//});
 
 // error handlers
 

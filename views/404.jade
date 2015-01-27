@@ -1,0 +1,12 @@
+extends layout
+
+block headtags
+	link(rel='stylesheet', href='/stylesheets/error.css')
+
+block content
+	div(id="error" class="col-sm-12 col-md-6 col-md-offset-3")
+		span(id="sign", class="glyphicon glyphicon-exclamation-sign")
+		div(id="error_code")= "404"
+		div(id="error_message")= "We cant find the page you are looking for"
+		div(id="error_desc")= "The page " + url + " does not exsist"
+

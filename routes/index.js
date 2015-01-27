@@ -16,17 +16,32 @@ module.exports = function(passport) {
 		return false;
 	}
 
+	function renderServerError(error, res, req) {
+		console.log(error);
+
+		res.locals.config = config;
+		res.locals.loggedIn = isLoggedIn(req);
+		res.render("500");
+	}
+
 	router.get('/', function(req, res) {
-		// See if the user is authencated
-		var loggedIn = isLoggedIn(req);
 		
 		req.getConnection(function(err, connection) {
+			if (err) {
+				renderServerError(err, res, req);
+			}
+
 			connection.query("SELECT * FROM projects WHERE fetured=1", function(err, rows) {
+				if (err) {
+					renderServerError(err, res, req);
+				}
+
+
 				res.locals.config = config;
-				res.locals.loggedIn = loggedIn;
+				res.locals.loggedIn = isLoggedIn(req);
 				res.locals.title = "Home";
 				res.locals.projects = rows;
-				res.render('index');//, { title: 'Home', loggedIn: loggedIn, config: config});
+				res.render('index');
 			});
 		});
 	});
@@ -36,20 +51,22 @@ module.exports = function(passport) {
 		var loggedIn = isLoggedIn(req);
 
 		req.getConnection(function(err, connection) {
-			// TODO: redirect to error page if error occored
+			if (err) {
+				renderServerError(err, res, req);
+			}
 
 			connection.query("SELECT * FROM projects", function(err, rows) {
-				// TODO: redirect to error page if an error occored
+				if (err) {
+					renderServerError(err, res, req);
+				}
 
 				res.locals.projects = rows;
 				res.locals.config = config;
 				res.locals.loggedIn = loggedIn;
 				res.locals.title = "Projects";
-				res.render('projects');//, { title: 'Projects', loggedIn: loggedIn, projects: rows , config: config});
+				res.render('projects');
 			});
 		});
-
-  		//res.render('index', { title: 'Projects', loggedIn: loggedIn });
 	});
 
 	router.get('/login', function(req, res) {
@@ -58,12 +75,12 @@ module.exports = function(passport) {
 
 		if (loggedIn) {
 			// TODO: Set a message to eb displayed 
-			req.redirect('/');
+			res.redirect('/');
 		}
 
 		res.locals.config = config;
 		res.locals.title = "Login";
-		res.render('login');//, {title: "Login", config: config});
+		res.render('login');
 	});
 
 	router.post('/login', passport.authenticate('local', {
@@ -83,10 +100,9 @@ module.exports = function(passport) {
 
 		if (!loggedIn) {
 			// TODO: Set a message to eb displayed 
-			req.redirect('/');
+			res.redirect('/');
 		}
 		
-
 		res.locals.config = config;
 		res.locals.loggedIn = loggedIn;
 		res.locals.title = "Update Login";
@@ -99,12 +115,11 @@ module.exports = function(passport) {
 
 		if (!loggedIn) {
 			// TODO: Set a message to eb displayed 
-			req.redirect('/');
+			res.redirect('/');
 		}
 
 		user.updateDetails(req.body);
 		req.redirect('/');
-		//res.render('updatelogin', {title: 'Update Login', loggedIn: loggedIn, config: config});
 	});
 
 	
@@ -115,13 +130,13 @@ module.exports = function(passport) {
 
 		if (!loggedIn) {
 			// TODO: Set a message to eb displayed 
-			req.redirect('/login');
+			res.redirect('/login');
 		}
 		
 		res.locals.config = config;
 		res.locals.loggedIn = loggedIn;
 		res.locals.title = "Project";
-		res.render('newproject'); //{ title: "Project", loggedIn: true, config: config});				
+		res.render('newproject');
 	});
 
 	router.post('/projects/new', function(req, res) {
@@ -130,7 +145,7 @@ module.exports = function(passport) {
 
 		if (!loggedIn) {
 			// TODO: Set a message to eb displayed 
-			req.redirect('/login');
+			res.redirect('/login');
 		}
 		
 		var name = "";
@@ -162,11 +177,11 @@ module.exports = function(passport) {
 			}
 		}
 
-		console.log(req.body);
-
-		console.log(fetured);
-
 		req.getConnection(function(err, connection) {
+			if (err) {
+				renderServerError(err, res, req);
+			}
+
 			connection.query("INSERT INTO projects(name, description, weblocation, sourcelocation, thumbnail, fetured) values('" + name + "', '" + desc + "', '" + weblocation + "', '" + sourcelocation + "', '" + thumbnail + "', " + fetured + ");");
 		});
 
@@ -185,19 +200,17 @@ module.exports = function(passport) {
 		var id = req.params.id;
 		req.getConnection(function(err, connection) {
 			if (err) {
-				console.log(err);
+				renderServerError(err, res, req);
 			}
 				
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
 				if (err) {
-					console.log(err);
-					res.redirect('/');
+					renderServerError(err, res, req);
 				} else	{
 					res.locals.config = config;
 					res.locals.loggedIn = loggedIn;
 					res.locals.project = rows[0];
 					res.render('editproject');
-					//res.render('editproject', {project: rows[0], loggedIn: loggedIn, config: config});	
 				}
 			});	
 		});
@@ -213,7 +226,6 @@ module.exports = function(passport) {
 
 		var id = req.params.id;
 		
-		console.log(req.body);
 		req.getConnection(function(err, connection) {
 			for (var l in req.body) {
 				if( req.body[l] != null && req.body[l] != "" ) {
@@ -256,6 +268,10 @@ module.exports = function(passport) {
 		var id = req.params.id;
 
 		req.getConnection(function(err, connection) {
+			if (err) {
+				renderServerError(err, res, req);
+			}
+
 			connection.query("SELECT * FROM projects WHERE id=" + id, function(err, rows) {
 				res.render('deleteproject', {project: rows[0], loggedIn: loggedIn, config: config});	
 			});	
@@ -286,7 +302,9 @@ module.exports = function(passport) {
 			res.redirect('/login');
 		}
 
-		res.render('updateconfig', {loggedIn: loggedIn, config: config});
+		res.locals.loggedIn = loggedIn;
+		res.locals.config = config;
+		res.render('updateconfig');
 
 	});
 
@@ -309,6 +327,14 @@ module.exports = function(passport) {
 	
 		configConnection.save(config);
 		res.redirect('/');	
+	});
+
+	// Handle 404 errors
+	router.get('*', function(req, res) {
+
+		res.locals.config = config;
+		res.locals.url = req.originalUrl;
+		res.render('404');
 	});
 
 	return router;
