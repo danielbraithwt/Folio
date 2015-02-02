@@ -1,8 +1,8 @@
 // Get the mysql config from the environment
 // variables and put them into an object
 module.exports = {
-	host: process.env.FOLIO_HOST,
-	database: process.env.FOLIO_DATABASE,
+	host: process.env.FOLIO_HOST || process.env.DB_HOST,
+	database: process.env.FOLIO_DATABASE || process.env.DB_NAME
 	user: process.env.FOLIO_USER,
-	password: process.env.FOLIO_PASSWORD
+	password: process.env.FOLIO_PASSWORD || process.env.DB_PASS
 }
