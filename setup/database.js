@@ -1,11 +1,7 @@
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
-var connection = mysql.createConnection({
-	host: process.env.FOLIO_HOST,
-	user: process.env.FOLIO_USER,
-	database: process.env.FOLIO_DATABASE,
-	password: process.env.FOLIO_PASSWORD
-});
+var config = require('../mysql/mysql-config.js');
+var connection = mysql.createConnection(config);
 
 
 console.log("[*] Database connection open");
