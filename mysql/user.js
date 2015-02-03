@@ -33,9 +33,7 @@ this.updateDetails = function(data) {
 	}
 
 	if (data.password) {
-		console.log(data.password);
 		var passwordHash = bcrypt.hashSync(data.password, 10);
-		console.log(passwordHash);
 		connection.query("UPDATE users SET passwordhash='" + passwordHash + "';");	
 	}
 };

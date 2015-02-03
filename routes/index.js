@@ -119,7 +119,7 @@ module.exports = function(passport) {
 		}
 
 		user.updateDetails(req.body);
-		req.redirect('/');
+		res.redirect('/');
 	});
 
 	
