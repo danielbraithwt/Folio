@@ -15,7 +15,7 @@ block content
 				input(type="text", name="description", class="form-control", placeholder="Description", value=config.description)
 
 			div(class="form-group col-sm-10 col-sm-offset-1")
-				textarea(rows="5", name="about_me", class="form-control", placeholder="About You", value=config.about_me)
+				textarea(rows="5", name="about_me", class="form-control", placeholder="About You")= config.about_me
 
 			div(class="upload")
 				div(class='sub_title')= "Resume"
@@ -28,7 +28,6 @@ block content
 
 			div(class="upload")
 				div(class='sub_title')= "Banner Image"
-				p= "Size: 180px X 180px"
 				input(type="file", value="banner_image", name="banner_image")
 
 			div(class="input_group input-group-lg col-sm-10 col-sm-offset-1")
