@@ -12,6 +12,10 @@ this.checkAuth = function(username, password, done) {
 			console.log(error);
 			return done(null, false);
 		}
+
+		if (rows[0] === undefined) {
+			return done(null, false);
+		}
 					
 		// Check to see if the password entered matches the one stored
 		if (bcrypt.compareSync(password, rows[0].passwordhash)) {

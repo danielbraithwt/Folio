@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-	"prestart": "node ./setup/database.js",
     "start": "node ./bin/www"
   },
   "dependencies": {
