@@ -45,28 +45,30 @@ block content
 					span(class="glyphicon glyphicon-earphone", style="font-size: 32px;")
 
 						p= config.phone_number
+	
 
-	div(id="fetured_projects", class="col-sm-12 col-md-6 col-md-offset-3")
-		div(class='title')= "Fetured Projects"
+	- if (projects.length !== 0)
+		div(id="fetured_projects", class="col-sm-12 col-md-6 col-md-offset-3")
+			div(class='title')= "Fetured Projects"
 
-		- for (var p in projects)
-			div(class="project col-sm-12")
-				if (projects[p].thumbnail != null)
-					div(class="project_image thumbnail")
-						img(src="images/" + projects[p].thumbnail)
+			- for (var p in projects)
+				div(class="project col-sm-12")
+					if (projects[p].thumbnail != null)
+						div(class="project_image thumbnail")
+							img(src="images/" + projects[p].thumbnail)
 
-				div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8 col-md-6" : ""))
-					div(class="project_information")
-						div(class="project_title_name")= projects[p].name
-						div(class="project_title_desc")= projects[p].description
+					div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8 col-md-6" : ""))
+						div(class="project_information")
+							div(class="project_title_name")= projects[p].name
+							div(class="project_title_desc")= projects[p].description
 
-					div(class="project_buttons")
-						if (projects[p].weblocation != "")
-							a(class="btn btn-info", href=projects[p].weblocation)= "View"
-						if (projects[p].sourcelocation != "")
-							a(class="btn btn-info", href=projects[p].sourcelocation)= "Source"
+						div(class="project_buttons")
+							if (projects[p].weblocation != "")
+								a(class="btn btn-info", href=projects[p].weblocation)= "View"
+							if (projects[p].sourcelocation != "")
+								a(class="btn btn-info", href=projects[p].sourcelocation)= "Source"
 
-						if loggedIn
-							a(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"
-							a(class="btn btn-danger", href=("/projects/delete/" + projects[p].id))= "Delete Project"
+							if loggedIn
+								a(class="btn btn-warning", href=("/projects/edit/" + projects[p].id))= "Edit Project"
+								a(class="btn btn-danger", href=("/projects/delete/" + projects[p].id))= "Delete Project"
 
