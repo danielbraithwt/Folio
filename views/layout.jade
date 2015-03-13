@@ -41,9 +41,6 @@ html
 										a(href="/projects/new", roll="menuitem", tabindex="-1")= "Add Project"
 										a(href="/update/config", roll="menuitem", tabindex="-1")= "Update Details"
 										a(href="/update/login", foll="menuitem", tabindex="-1")= "Update Login"
-						else
-							li(class=(title === "Login") ? 'active' : '')
-								a(href="/login")= "Login"
 
 		if (config.banner_image != '')
 			div(id="image", style='background-image: url(/uploads/' + config.banner_image + ');')
