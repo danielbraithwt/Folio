@@ -14,3 +14,5 @@ Open source portfolio site for programmers, created with Node.js
 The default login is `admin(username)`, `password(password)` when the site is first deployed it wont have anything to add conent login and to the edit config page, there you can customise the Folio website
 
 If you happen to forget your login then you can run the reset password script `node setup/resetpassword.js` and it will set the username and password back to the default
+
+When setting up your Folio site use the local IP, for some reason multer dosnt like to upload when using external access
