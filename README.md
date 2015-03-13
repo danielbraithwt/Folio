@@ -4,6 +4,7 @@ Open source portfolio site for programmers, created with Node.js
 ## Setup
 * Clone the github repo
 * Set up environment variables
+  * FOLIO_PORT - Port you want the server to run on (if not set will default to 3000)
   * FOLIO_HOST - The host of the mysql datbase
   * FOLIO_DATABASE - The database name that should be used
   * FOLIO_USER - The username to login to the mysql database

@@ -26,7 +26,7 @@ app.use(multer({ dest: './public/uploads/',
 		));
 
 // view engine setup
-app.set('port', process.env.PORT || 3000 );
+app.set('port', process.env.FOLIO_PORT || 3000 );
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
