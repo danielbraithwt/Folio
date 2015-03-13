@@ -4,7 +4,8 @@ block headtags
 	link(rel='stylesheet', href='/stylesheets/projects.css')
 
 block content
-	div(class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-4")
+	div(class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4")
+		div(class="title")= "Projects"
 		- for (var p in projects)
 			div(class="project")
 				if (projects[p].thumbnail != null)
