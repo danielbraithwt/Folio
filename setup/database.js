@@ -19,11 +19,11 @@ console.log("\t[>] Password hash: " + passwordhash);
 connection.query("INSERT INTO users(username, passwordhash) values('admin', '" + passwordhash + "');");
 
 console.log("[*] Creating config table");
-connection.query("CREATE TABLE IF NOT EXISTS config(name varchar(400), description varchar(100), about_me varchar(400), resume varchar(200), profile_icon varchar(200), banner_image varchar(200), email varchar(200), github varchar(200), phone_number varchar(50));");
+connection.query("CREATE TABLE IF NOT EXISTS config(name varchar(400), description varchar(100), about_me varchar(400), resume varchar(200), academic_record varchar(200), profile_icon varchar(200), banner_image varchar(200), email varchar(200), github varchar(200), phone_number varchar(50));");
 console.log("[*] Clearing config table");
 connection.query("TRUNCATE config;");
 console.log("[*] Creating empty record in config table");
-connection.query("INSERT INTO config(name, description, about_me, resume, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', '', '', '', '')");
+connection.query("INSERT INTO config(name, description, about_me, resume, academic_record, profile_icon, banner_image, email, github, phone_number) VALUES('', '', '', '', '', '', '', '', '', '')");
 
 console.log("[*] Creating table to hold experence data")
 connection.query("CREATE TABLE IF NOT EXISTS experence(id int AUTO_INCREMENT, title varchar(200), placeholder varchar(300), text varchar(2000), PRIMARY KEY(id));");

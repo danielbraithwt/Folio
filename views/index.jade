@@ -24,7 +24,11 @@ block content
 		if (config.resume != '')
 			div(id="resume")
 				a(class="btn btn-default" href="uploads/" + config.resume)= "Download Resume"
-		
+
+		if (config.academic_record != '')
+			div(id="academic_record")
+				a(class="btn btn-default" href="uploads/" + config.academic_record)= "Download Academic Record"
+
 		if (config.email != '')
 			div(id="email", class="contact_option")
 				div(class="icon")
