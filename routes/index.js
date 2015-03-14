@@ -234,6 +234,14 @@ module.exports = function(passport) {
 					if (field === "fetured") {
 						connection.query("UPDATE projects SET fetured=1 WHERE id=" + id);
 					} else {
+						// Make sure that the links are valid, if the current
+						// field is a link
+						if (field.indexOf("location") != -1) {
+							if (req.body["project_" + field].indexOf("http://") != 0) {
+								req.body["project_" + field] = "http://" + req.body["project_" + field];
+							}
+						}
+
 						connection.query("UPDATE projects SET " + field + "='" + req.body[l] + "' WHERE id=" + id + ";", function(err, rows) { 
 							if (err) {
 								console.log("[ERROR] " + err);   
