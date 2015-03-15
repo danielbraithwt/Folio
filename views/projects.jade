@@ -12,7 +12,7 @@ block content
 					div(class="project_image thumbnail")
 						img(src="uploads/" + projects[p].thumbnail)
 
-				div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8 col-md-6" : ""))
+				div(class="project_details" + (projects[p].thumbnail != null ? "col-sm-8 col-md-6" : "") style=(isMobile == true ? "clear:both;" : ""))
 					div(class="project_information")
 						div(class="project_title_name")= projects[p].name
 						- if (projects[p].fetured == 1)
