@@ -16,6 +16,11 @@ module.exports = function(passport) {
 		return false;
 	}
 
+	function checkMobile(res, req) {
+		res.locals.isMobile = (req.headers['user-agent'].toLowerCase().indexOf("mobile") != -1);
+		console.log(res.locals.isMobile);
+	}
+
 	function renderServerError(error, res, req) {
 		console.log(error);
 
@@ -36,6 +41,8 @@ module.exports = function(passport) {
 					renderServerError(err, res, req);
 				}
 
+				
+				checkMobile(res, req);
 
 				res.locals.config = config;
 				res.locals.loggedIn = isLoggedIn(req);
@@ -60,6 +67,8 @@ module.exports = function(passport) {
 					renderServerError(err, res, req);
 				}
 
+				checkMobile(res, req);
+
 				res.locals.projects = rows;
 				res.locals.config = config;
 				res.locals.loggedIn = loggedIn;
@@ -77,6 +86,8 @@ module.exports = function(passport) {
 			// TODO: Set a message to eb displayed 
 			res.redirect('/');
 		}
+
+		checkMobile(res, req);
 
 		res.locals.config = config;
 		res.locals.title = "Login";
@@ -103,6 +114,8 @@ module.exports = function(passport) {
 			res.redirect('/');
 		}
 		
+		checkMobile(res, req);
+
 		res.locals.config = config;
 		res.locals.loggedIn = loggedIn;
 		res.locals.title = "Update Login";
@@ -133,6 +146,8 @@ module.exports = function(passport) {
 			res.redirect('/login');
 		}
 		
+		checkMobile(res, req);
+
 		res.locals.config = config;
 		res.locals.loggedIn = loggedIn;
 		res.locals.title = "Project";
@@ -309,6 +324,8 @@ module.exports = function(passport) {
 		if (!loggedIn) {
 			res.redirect('/login');
 		}
+
+		checkMobile(res, req);
 
 		res.locals.loggedIn = loggedIn;
 		res.locals.config = config;

@@ -46,7 +46,7 @@ html
 
 		if (config.banner_image != '')
 			div(id="image", style='background-image: url(/uploads/' + config.banner_image + ');')
-				div(id="header_image_text")
+				div(id="header_image_text", style="padding-top: " + (isMobile == true ? "10px;" : "180px;"))
 					div(id="name")= (config.name != '' ? config.name : "Your Name")
 					div(id="desc")= (config.description != '' ? config.description : "Description About You")
 
