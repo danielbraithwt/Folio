@@ -5,7 +5,7 @@ block headtags
 
 block content
 
-	div(id="about_me", class="col-sm-4 col-sm-offset-1 col-md-2 col-md-offset-3")
+	div(id="about_me", class="col-sm-4 col-md-2 col-md-offset-3")
 		div(class='title')= "About Me"
 		
 		if (config.profile_icon != '')
@@ -43,7 +43,7 @@ block content
 
 				p= config.phone_number
 
-	div(id="experence", class="col-sm-7 col-md-4")
+	div(id="experence", class="col-sm-8 col-md-4")
 		div(class='title')= "Experence"
 		div(id='experence_information')
 			- for (var i in config.experence)
