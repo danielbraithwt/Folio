@@ -19,9 +19,14 @@ html
 		div(id="header", class="navbar navbar-default")
 			div(class="container")
 				div(class="navbar-header")
+					button(class="navbar-toggle collapsed", type="button", data-toggle="collapse", data-target=".bs-navbar-collapse")
+						span(class="sr-only")= "Toggle navigation"
+						span(class="icon-bar")
+						span(class="icon-bar")
+						span(class="icon-bar")
 					div(class="navbar-brand", href="/")= config.name
 
-				div(class="collapse navbar-collapse")
+				div(class="collapse navbar-collapse bs-navbar-collapse")
 					ul(class="navbar-left nav navbar-nav")
 						li(class=(title === "Home") ? "active" : "")
 							a(href="/")= "Home"
